@@ -1,0 +1,43 @@
+
+  Dropping all tables  138.83ms DONE
+
+   INFO  Preparing database.  
+
+  Creating migration table  18.26ms DONE
+
+   INFO  Running migrations.  
+
+  0001_01_01_000000_create_roles_table  35.64ms DONE
+  0001_01_01_000001_create_users_table  99.70ms DONE
+  0001_01_01_000002_create_cache_table  40.04ms DONE
+  0001_01_01_000003_create_jobs_table  58.89ms DONE
+  2026_03_03_151901_create_course_classes_table  11.89ms DONE
+  2026_03_03_151901_create_gallery_categories_table  11.06ms DONE
+  2026_03_03_151901_create_notices_table  10.78ms DONE
+  2026_03_03_151902_create_enquiries_table  9.45ms DONE
+  2026_03_03_151902_create_galleries_table  43.99ms DONE
+  2026_03_03_151903_create_fees_table  44.88ms DONE
+  2026_03_03_151904_create_expenses_table  9.04ms DONE
+  2026_03_03_151904_create_fee_payments_table  51.33ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[HY000]: General error: 1824 Failed to open the referenced table 'students' (Connection: mysql, Host: 127.0.0.1, Port: 3306, Database: laravel, SQL: alter table `fee_payments` add constraint `fee_payments_student_id_foreign` foreign key (`student_id`) references `students` (`id`) on delete cascade)
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:838
+    834▕             $exceptionType = $this->isUniqueConstraintError($e)
+    835▕                 ? UniqueConstraintViolationException::class
+    836▕                 : QueryException::class;
+    837▕ 
+  ➜ 838▕             throw new $exceptionType(
+    839▕                 $this->getNameWithReadWriteType(),
+    840▕                 $query,
+    841▕                 $this->prepareBindings($bindings),
+    842▕                 $e,
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:584
+      PDOException::("SQLSTATE[HY000]: General error: 1824 Failed to open the referenced table 'students'")
+
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:584
+      PDOStatement::execute()
+

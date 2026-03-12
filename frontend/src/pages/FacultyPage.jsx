@@ -1,0 +1,10 @@
+export default function FacultyPage() {
+    return (
+        <div className="min-h-screen py-20 bg-slate-50">
+            <div className="max-w-7xl mx-auto px-4 text-center">
+                <h1 className="text-4xl font-bold text-slate-900 mb-6">Faculty & Staff</h1>
+                <p className="text-xl text-slate-600">Meet our dedicated team of educators and professionals.</p>
+            </div>
+        </div>
+    );
+}
