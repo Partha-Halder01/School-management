@@ -1,0 +1,88 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2' # You can change this if your hostinger server uses a different PHP version
+
+    - name: Install Backend Dependencies
+      run: |
+        cd backend
+        composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+        
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Frontend Dependencies and Build
+      env:
+        # Pass the live API URL to Vite build process
+        VITE_API_BASE_URL: https://jamiafurqan.org/api
+      run: |
+        cd frontend
+        npm install
+        npm run build
+
+    - name: Deploy to Hostinger using rsync
+      env:
+        SSHPASS: ${{ secrets.HOSTINGER_PASSWORD }}
+      run: |
+        sudo apt-get update && sudo apt-get install -y sshpass
+        
+        # Deploy Backend (outside public_html for security)
+        sshpass -e rsync -avz --delete \
+          -e "ssh -p ${{ secrets.HOSTINGER_PORT }} -o StrictHostKeyChecking=no" \
+          backend/ ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:domains/jamiafurqan.org/backend/
+          
+        # Deploy Frontend
+        sshpass -e rsync -avz --delete \
+          -e "ssh -p ${{ secrets.HOSTINGER_PORT }} -o StrictHostKeyChecking=no" \
+          frontend/dist/ ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:domains/jamiafurqan.org/public_html/
+          
+        # Copy Routing Files for Hostinger
+        sshpass -e rsync -avz \
+          -e "ssh -p ${{ secrets.HOSTINGER_PORT }} -o StrictHostKeyChecking=no" \
+          hostinger.htaccess ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:domains/jamiafurqan.org/public_html/.htaccess
+        sshpass -e rsync -avz \
+          -e "ssh -p ${{ secrets.HOSTINGER_PORT }} -o StrictHostKeyChecking=no" \
+          hostinger-index.php ${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:domains/jamiafurqan.org/public_html/hostinger-index.php
+
+    - name: Execute Post-Deployment Commands over SSH
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOSTINGER_HOST }}
+        username: ${{ secrets.HOSTINGER_USER }}
+        password: ${{ secrets.HOSTINGER_PASSWORD }}
+        port: ${{ secrets.HOSTINGER_PORT }}
+        script: |
+          cd domains/jamiafurqan.org/backend
+          
+          # Create symbolic link for public storage if it doesn't exist
+          php artisan storage:link || echo "Storage link already exists or failed"
+          
+          # Fix Hostinger specific public storage link issues
+          cd ~/domains/jamiafurqan.org
+          # Point the API requests from the frontend to the backend's public directory
+          rm -rf public_html/api
+          ln -s ~/domains/jamiafurqan.org/backend/public ~/domains/jamiafurqan.org/public_html/api
+          
+          cd ~/domains/jamiafurqan.org/backend
+          # Clear application cache
+          php artisan optimize:clear
+          
+          # Run database migrations
+          php artisan migrate --force

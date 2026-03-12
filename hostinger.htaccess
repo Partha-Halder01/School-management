@@ -1,0 +1,27 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Handle React Frontend Routing
+    # If the file/dir doesn't exist, and it's not an API request, serve index.html
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} !^/api/ [NC]
+    RewriteRule ^ index.html [L]
+
+    # Handle Laravel Backend Routing
+    # Forward all /api/ requests to the Laravel index.php using our hostinger-index.php wrapper
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} ^/api/ [NC]
+    RewriteRule ^ hostinger-index.php [L]
+
+</IfModule>
