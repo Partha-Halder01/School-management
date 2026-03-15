@@ -35,7 +35,7 @@ const Header = () => {
           <span className="flex items-center"><Mail size={14} className="mr-2" /> jamiaalfurqan01@gmail.com</span>
         </div>
         <div className="flex space-x-4">
-          <Link to="/admin/login" className="hover:text-primary-300 transition-colors font-medium">Portal Login</Link>
+          <Link to="/login" className="hover:text-primary-300 transition-colors font-medium">Portal Login</Link>
         </div>
       </div>
 

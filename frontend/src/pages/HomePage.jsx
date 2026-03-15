@@ -47,12 +47,12 @@ function CountUp({ end, suffix = '', duration = 2000 }) {
 }
 
 const features = [
-    { icon: FlaskConical, title: 'STEM Labs', desc: 'Fully equipped science & robotics labs for hands-on exploration.' },
-    { icon: Globe, title: 'Global Exposure', desc: 'Student exchanges, MUNs, and international collaborations.' },
-    { icon: Palette, title: 'Arts & Culture', desc: 'Dance, theater, music studios, and annual cultural fests.' },
-    { icon: Dumbbell, title: 'Sports Academy', desc: 'Professional coaching in cricket, athletics, and swimming.' },
-    { icon: Shield, title: 'Safe Campus', desc: '24/7 CCTV surveillance and secure transport facilities.' },
-    { icon: Lightbulb, title: 'Smart Classrooms', desc: 'Interactive boards and digital learning in every room.' },
+    { icon: FlaskConical, title: 'STEM Labs', desc: 'Science and robotics spaces where students test ideas and build real projects.' },
+    { icon: Globe, title: 'Global Exposure', desc: 'Student exchanges, MUN participation, and meaningful international collaborations.' },
+    { icon: Palette, title: 'Arts & Culture', desc: 'Dance, theatre, music, and annual festivals that bring campus life alive.' },
+    { icon: Dumbbell, title: 'Sports Academy', desc: 'Expert coaching in cricket, athletics, and swimming with structured practice plans.' },
+    { icon: Shield, title: 'Safe Campus', desc: '24/7 monitoring, trained staff, and reliable transport for daily peace of mind.' },
+    { icon: Lightbulb, title: 'Smart Classrooms', desc: 'Interactive boards and digital tools that make lessons more engaging.' },
 ];
 
 const defaultTestimonials = [
@@ -628,27 +628,30 @@ export default function HomePage() {
             {/* ═══════════════════════════════════════════════════════════════════
                 5. WHY CHOOSE US — Feature grid
             ═══════════════════════════════════════════════════════════════════ */}
-            <section className="py-24 bg-[#0f172a] relative overflow-hidden">
-                <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "30px 30px" }}></div>
-                <div className="absolute top-20 left-10 w-72 h-72 bg-primary-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-                <div className="absolute bottom-20 right-10 w-72 h-72 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+            <section className="py-24 bg-[#0d1a2f] relative overflow-hidden">
+                <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)", backgroundSize: "28px 28px" }}></div>
+                <div className="absolute top-20 -left-12 w-72 h-72 bg-primary-500/12 rounded-full blur-[110px] pointer-events-none"></div>
+                <div className="absolute -bottom-16 right-0 w-80 h-80 bg-cyan-500/12 rounded-full blur-[120px] pointer-events-none"></div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="text-center mb-16">
-                        <h2 className="text-sm font-bold text-primary-400 uppercase tracking-[0.2em] mb-4">Why Choose Us</h2>
-                        <h3 className="text-5xl md:text-7xl font-bebas font-bold text-white tracking-widest">
-                            WORLD-CLASS <span className="font-caveat text-primary-400 lowercase tracking-normal text-5xl md:text-7xl block mt-1">facilities</span>
+                    <div className="text-center mb-14 md:mb-16 max-w-3xl mx-auto">
+                        <h2 className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-semibold text-primary-300 uppercase tracking-[0.14em] mb-5">Why Families Choose Us</h2>
+                        <h3 className="text-4xl md:text-6xl font-semibold text-white tracking-tight leading-[1.1]">
+                            Facilities that feel alive, practical, and built for real learning.
                         </h3>
+                        <p className="text-slate-300/90 text-sm md:text-base mt-5 leading-relaxed">
+                            From labs to arts and sports, every space is designed to help students explore confidently and grow every day.
+                        </p>
                     </div>
-                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                         {features.map((feat, idx) => {
                             const accents = [
-                                { gradient: 'from-primary-500 to-emerald-400', glow: 'bg-primary-500' },
-                                { gradient: 'from-blue-500 to-cyan-400', glow: 'bg-blue-500' },
-                                { gradient: 'from-amber-500 to-orange-400', glow: 'bg-amber-500' },
-                                { gradient: 'from-purple-500 to-pink-400', glow: 'bg-purple-500' },
-                                { gradient: 'from-rose-500 to-red-400', glow: 'bg-rose-500' },
-                                { gradient: 'from-teal-500 to-cyan-400', glow: 'bg-teal-500' },
+                                { border: 'border-emerald-300/30', iconBg: 'bg-emerald-300/10', iconText: 'text-emerald-300', dot: 'bg-emerald-300' },
+                                { border: 'border-cyan-300/30', iconBg: 'bg-cyan-300/10', iconText: 'text-cyan-300', dot: 'bg-cyan-300' },
+                                { border: 'border-amber-300/30', iconBg: 'bg-amber-300/10', iconText: 'text-amber-300', dot: 'bg-amber-300' },
+                                { border: 'border-violet-300/30', iconBg: 'bg-violet-300/10', iconText: 'text-violet-300', dot: 'bg-violet-300' },
+                                { border: 'border-rose-300/30', iconBg: 'bg-rose-300/10', iconText: 'text-rose-300', dot: 'bg-rose-300' },
+                                { border: 'border-teal-300/30', iconBg: 'bg-teal-300/10', iconText: 'text-teal-300', dot: 'bg-teal-300' },
                             ];
                             const a = accents[idx % accents.length];
                             return (
@@ -658,33 +661,22 @@ export default function HomePage() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.5, delay: idx * 0.1 }}
-                                    className="relative border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-colors duration-500 group p-5 lg:p-8 bg-white/[0.04] hover:bg-white/[0.08]"
+                                    className={`relative rounded-3xl overflow-hidden border border-white/12 ${a.border} transition-all duration-400 group p-6 lg:p-7 bg-white/[0.045] hover:bg-white/[0.085] hover:-translate-y-1 shadow-[0_8px_30px_rgba(0,0,0,0.2)]`}
                                 >
-                                    {/* Colored top accent bar */}
-                                    <div className={`absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r ${a.gradient} opacity-60 group-hover:opacity-100 transition-opacity`}></div>
-
-                                    {/* Hover glow */}
-                                    <div className={`absolute -top-10 -right-10 w-32 h-32 ${a.glow} rounded-full blur-[60px] opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-
                                     <div className="relative z-10">
-                                        {/* Index number + Icon row */}
-                                        <div className="flex items-center justify-between mb-4">
-                                            <div className="relative">
-                                                <div className={`absolute inset-0 ${a.glow} rounded-xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 scale-150`}></div>
-                                                <div className={`relative w-12 h-12 rounded-xl bg-gradient-to-br ${a.gradient} bg-opacity-15 text-white/80 flex items-center justify-center group-hover:text-white transition-all duration-300 group-hover:scale-110 transform shadow-lg`} style={{ background: `linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))` }}>
-                                                    <feat.icon size={22} className="text-primary-400 group-hover:text-white transition-colors" />
-                                                </div>
+                                        <div className="flex items-start justify-between mb-5">
+                                            <div className={`w-12 h-12 rounded-2xl ${a.iconBg} ${a.iconText} flex items-center justify-center border border-white/10 transition-transform duration-300 group-hover:scale-105`}>
+                                                <feat.icon size={22} />
                                             </div>
-                                            <span className="text-3xl lg:text-4xl font-bebas font-bold text-white/[0.06] group-hover:text-white/[0.12] transition-colors">0{idx + 1}</span>
+                                            <span className="text-sm font-semibold tracking-[0.2em] text-white/35">0{idx + 1}</span>
                                         </div>
 
-                                        <h4 className="text-lg lg:text-xl font-bebas font-bold text-white tracking-wide mb-1.5">{feat.title}</h4>
-                                        <p className="text-gray-400 text-xs lg:text-sm leading-relaxed">{feat.desc}</p>
+                                        <h4 className="text-lg lg:text-xl font-semibold text-white tracking-tight mb-2">{feat.title}</h4>
+                                        <p className="text-slate-300 text-sm lg:text-[15px] leading-relaxed">{feat.desc}</p>
 
-                                        {/* Arrow on hover */}
-                                        <div className="mt-3 lg:mt-4 flex items-center gap-1 text-primary-400 text-xs lg:text-sm font-bold opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                                            <span>Explore</span>
-                                            <ArrowRight size={13} />
+                                        <div className="mt-5 flex items-center gap-2 text-xs uppercase tracking-[0.14em] text-white/70">
+                                            <span className={`w-1.5 h-1.5 rounded-full ${a.dot}`}></span>
+                                            <span>Everyday impact</span>
                                         </div>
                                     </div>
                                 </motion.div>
